@@ -347,7 +347,7 @@ ease-out 0.6s backwards;
 /* Mobile responsive styles for project links */
 @media (max-width: 768px) {
     .view-project {
-        width: 100%;
+        width: 90%;
         text-align: center;
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
@@ -1504,7 +1504,7 @@ ease-out 0.6s backwards;
     }
 
     .view-certificate {
-        width: 100%;
+        width: 80%;
         text-align: center;
     }
 }
