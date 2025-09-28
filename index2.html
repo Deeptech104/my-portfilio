@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deep Tech — Portfolio</title>
+  <meta name="description" content="Personal portfolio showcasing projects, skills and contact information." />
+  <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- tiny placeholder -->
+  <style>
+    :root{
+      --bg: #0f1724; /* dark */
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #7c3aed;
+      --glass: rgba(255,255,255,0.04);
+      --text: #e6eef8;
+      --success: #16a34a;
+      --danger: #ef4444;
+      --radius: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    [data-theme="light"]{
+      --bg: #f6f9fc;
+      --card: #ffffff;
+      --muted: #475569;
+      --accent: #6d28d9;
+      --glass: rgba(2,6,23,0.03);
+      --text: #071129;
+      --success: #0f766e;
+      --danger: #dc2626;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; background:linear-gradient(180deg,var(--bg), #071326 80%); color:var(--text);}
+    a{color:inherit; text-decoration:none}
+
+    .container{max-width:1100px; margin:36px auto; padding:28px;}
+
+    header{display:flex;align-items:center;justify-content:space-between; gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{font-weight:600;color:var(--muted)}
+
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center;margin-top:30px}
+    .card{background:var(--card); padding:24px;border-radius:var(--radius);box-shadow:0 6px 24px rgba(2,6,23,0.4);}
+
+    .hero h1{margin:0;font-size:32px}
+    .hero p.lead{color:var(--muted);margin-top:8px;line-height:1.6}
+
+    .profile{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+    .avatar{width:160px;height:160px;border-radius:18px;overflow:hidden;border:4px solid rgba(255,255,255,0.06);background:linear-gradient(135deg,#0ea5e9,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:40px}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .skill{padding:14px;border-radius:10px;background:var(--glass);text-align:center}
+
+    .projects{margin-top:26px}
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .project{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);cursor:pointer}
+    .project h4{margin:0 0 8px 0}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+
+    .cta{display:flex;gap:10px;align-items:center;margin-top:16px}
+    .btn{padding:10px 14px;border-radius:10px;background:var(--accent);color:white;font-weight:700;border:none;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    footer{margin-top:34px;padding:18px;border-radius:12px;background:var(--card);display:flex;justify-content:space-between;align-items:center}
+
+    .contact-form{display:grid;gap:10px}
+    input,textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+    textarea{min-height:120px}
+
+    /* responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr} .projects-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.projects-grid{grid-template-columns:1fr} header{flex-direction:column;align-items:flex-start} nav{overflow:auto;white-space:nowrap}}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{max-width:900px;width:100%;background:var(--card);padding:20px;border-radius:14px}
+
+    /* tiny animation */
+    .fade-in{animation:fadeIn .45s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    .nav-small{display:none}
+    @media (max-width:640px){.nav-small{display:block} nav{display:none}}
+
+    .copy-btn{background:transparent;border:1px dashed rgba(255,255,255,0.06);padding:6px 10px;border-radius:8px;cursor:pointer}
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">DT</div>
+        <div>
+          <div style="font-weight:800">Deep Tech</div>
+          <div class="muted" style="font-size:12px">Frontend • DevOps • Open Source</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <nav>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="nav-small btn ghost" onclick="toggleNav()">Menu</button>
+        <button class="btn" id="themeToggle">Toggle Theme</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card fade-in">
+          <h1>Hi — I&#39;m Deepak (Deep Tech)</h1>
+          <p class="lead">I build clean, accessible web apps and developer tools. I love JavaScript, automation and shipping projects that help people learn and move faster.</p>
+
+          <div class="cta">
+            <a class="btn" href="#projects">See Projects</a>
+            <button class="btn ghost" onclick="scrollToSection('contact')">Hire me</button>
+          </div>
+
+          <div class="projects" id="projects">
+            <h3 style="margin-top:20px">Featured projects</h3>
+            <div class="projects-grid" id="projectsGrid">
+              <!-- Projects are inserted by JS -->
+            </div>
+          </div>
+        </div>
+
+        <aside class="card profile fade-in" id="about">
+          <div class="avatar">DS</div>
+          <h3 style="margin:4px 0 0 0">Deepak Sharma</h3>
+          <div class="muted">Software Engineer &amp; DevOps enthusiast</div>
+
+          <div style="margin-top:12px;text-align:left">
+            <h4 style="margin:6px 0">Contact</h4>
+            <div class="muted" style="font-size:14px">Email: <span id="email">deeptech@example.com</span> <button class="copy-btn" onclick="copyEmail()">Copy</button></div>
+            <div class="muted" style="font-size:14px;margin-top:6px">Location: Pakistan</div>
+          </div>
+
+          <div class="grid-3" id="skills">
+            <div class="skill"><strong>HTML</strong><div class="muted">Semantic markup</div></div>
+            <div class="skill"><strong>CSS</strong><div class="muted">Responsive UI</div></div>
+            <div class="skill"><strong>JS</strong><div class="muted">ES6+, tooling</div></div>
+          </div>
+
+        </aside>
+      </section>
+
+      <section class="card fade-in" style="margin-top:18px">
+        <h3>About me</h3>
+        <p class="muted">I&#39;m a computer science student and part-time chef who loves writing code that makes a difference. I build small apps, automation scripts, and hold workshops on GitHub and DevOps topics.</p>
+      </section>
+
+      <section class="card fade-in" style="margin-top:18px" id="contact">
+        <h3>Contact</h3>
+        <p class="muted">Want to work together or invite me to speak? Drop a message — I usually reply within a few days.</p>
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="email" id="emailInput" placeholder="your@example.com" required />
+          <textarea id="message" placeholder="Tell me about the project..." required></textarea>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn" type="submit">Send message</button>
+            <button class="btn ghost" type="button" onclick="resetForm()">Reset</button>
+            <div id="formStatus" class="muted" style="font-size:14px"></div>
+          </div>
+        </form>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="muted">© " + new Date().getFullYear() + " Deep Tech</div>
+      <div class="muted">Built with HTML • CSS • JS</div>
+    </footer>
+  </div>
+
+  <!-- modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" id="modal">
+      <button style="float:right" onclick="closeModal()">Close</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // =====================
+    // Data (replace with your own projects)
+    // =====================
+    const projects = [
+      {id:1,title:'Portfolio Website',desc:'Single-file portfolio built with HTML/CSS/JS',tags:['HTML','CSS','JS'],link:'#'},
+      {id:2,title:'Task Automator',desc:'CLI tool to automate repetitive tasks',tags:['Node','CLI'],link:'#'},
+      {id:3,title:'DevOps Tutorial',desc:'Step-by-step guides on CI/CD',tags:['Docs','CI/CD'],link:'#'},
+      {id:4,title:'Music Player',desc:'Web-based music player',tags:['UI','JS'],link:'#'},
+      {id:5,title:'Open Source Library',desc:'Small JS library for helpers',tags:['NPM','JS'],link:'#'},
+      {id:6,title:'Mini Blog',desc:'Markdown-driven static blog',tags:['Markdown','Static'],link:'#'}
+    ];
+
+    // render projects
+    const grid = document.getElementById('projectsGrid');
+    projects.forEach(p => {
+      const el = document.createElement('div'); el.className='project'; el.onclick = ()=> openProject(p);
+      el.innerHTML = `<h4>${p.title}</h4><p>${p.desc}</p>`;
+      grid.appendChild(el);
+    });
+
+    function openProject(p){
+      const modal = document.getElementById('modalBackdrop');
+      const content = document.getElementById('modalContent');
+      content.innerHTML = `<h2>${p.title}</h2><p class=\"muted\">${p.desc}</p><p><strong>Tags:</strong> ${p.tags.join(', ')}</p><p><a href=\"${p.link}\" target=\"_blank\">View project</a></p>`;
+      modal.style.display='flex';
+    }
+    function closeModal(){document.getElementById('modalBackdrop').style.display='none'}
+
+    // theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', ()=>{
+      const el = document.documentElement;
+      if(document.body.getAttribute('data-theme') === 'dark'){
+        document.body.setAttribute('data-theme','light');
+      } else document.body.setAttribute('data-theme','dark');
+    });
+
+    // contact form (no backend) - shows validation + copy to clipboard simulation
+    function submitForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('formStatus');
+      if(!name||!email||!message){status.textContent='Please fill all fields';status.style.color='var(--danger)';return}
+      // fake send
+      status.textContent='Message prepared (demo). Copy the details or connect your email service.';status.style.color='var(--success)';
+      console.log({name,email,message});
+    }
+    function resetForm(){document.getElementById('name').value='';document.getElementById('emailInput').value='';document.getElementById('message').value='';document.getElementById('formStatus').textContent=''}
+
+    // copy email helper
+    function copyEmail(){
+      const email = document.getElementById('email').textContent;
+      navigator.clipboard && navigator.clipboard.writeText(email).then(()=>{
+        alert('Email copied to clipboard: '+email);
+      }).catch(()=>{alert('Copying failed — email: '+email)});
+    }
+
+    // nav small toggle
+    function toggleNav(){
+      const nav = document.querySelector('nav');
+      if(nav.style.display==='flex') nav.style.display=''; else nav.style.display='flex';
+    }
+
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    // small accessibility: close modal on ESC
+    document.addEventListener('keydown', e=>{if(e.key==='Escape') closeModal()});
+
+    // set default year in footer text (since template is single file, we update it here)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      try{const footerYear = document.querySelector('footer div'); footerYear.textContent = `© ${new Date().getFullYear()} Deep Tech`;}catch(e){}
+    });
+  </script>
+</body>
+</html>
